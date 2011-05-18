@@ -54,7 +54,7 @@ Aloha.TablePlugin.activeTable = undefined;
  *            The class of activated tables
  */
 Aloha.TablePlugin.parameters = {
-	className            : 'GENTICS_Aloha_Table',                 // class of editable tables
+	className            : 'aloha-button aloha-button-table',                 // class of editable tables
 	classSelectionRow    : 'GENTICS_Aloha_Table_selectColumn',    // class for the upper table-row to select columns
 	classSelectionColumn : 'GENTICS_Aloha_Table_selectRow',       // class for the left bound table-cells to select rows
 	classLeftUpperCorner : 'GENTICS_Aloha_Table_leftUpperCorner', // class for the left upper corner cell
@@ -80,7 +80,8 @@ Aloha.TablePlugin.init = function() {
 	var that = this;
 
 	// subscribe for the 'editableActivated' event to activate all tables in the editable
-	Aloha.EventRegistry.subscribe(Aloha, 'editableCreated', function(event, editable) {
+	Aloha.bind('aloha-editable-created',function(event, editable){
+	//Aloha.EventRegistry.subscribe(Aloha, 'editableCreated', function(event, editable) {
 
 		// add a mousedown event to all created editables to check if focus leaves a table
 		editable.obj.bind('mousedown', function(jqEvent) {
@@ -107,8 +108,8 @@ Aloha.TablePlugin.init = function() {
 
 	// initialize the table buttons
 	this.initTableButtons();
-
-	Aloha.EventRegistry.subscribe(Aloha, 'selectionChanged', function(event, rangeObject) {
+	Aloha.bind('aloha-selection-changed', function(event, rangeObject) {
+	//Aloha.EventRegistry.subscribe(Aloha, 'selectionChanged', function(event, rangeObject) {
 
 		if (Aloha.activeEditable) {
 			// get Plugin configuration
@@ -143,7 +144,8 @@ Aloha.TablePlugin.init = function() {
 	});
 
 	// subscribe for the 'editableActivated' event to activate all tables in the editable
-	Aloha.EventRegistry.subscribe(Aloha, 'editableActivated', function(event, props) {
+	Aloha.bind('aloha-editable-activated', function(event, props) {
+	//Aloha.EventRegistry.subscribe(Aloha, 'editableActivated', function(event, props) {
 		props.editable.obj.find('table').each(function() {
 			// shortcut for TableRegistry
 			var tr = Aloha.TablePlugin.TableRegistry;
@@ -175,7 +177,8 @@ Aloha.TablePlugin.init = function() {
 	});
 
 	// subscribe for the 'editableDeactivated' event to deactivate all tables in the editable
-	Aloha.EventRegistry.subscribe(Aloha, 'editableDeactivated', function(event, properties) {
+	Aloha.bind('aloha-editable-deactivated', function(event, properties) {
+	//Aloha.EventRegistry.subscribe(Aloha, 'editableDeactivated', function(event, properties) {
 		Aloha.TablePlugin.setFocusedTable(undefined);
 		Aloha.TableHelper.unselectCells();
 		// shortcut for TableRegistry
@@ -213,7 +216,7 @@ Aloha.TablePlugin.initTableButtons = function () {
 
 	// the 'create table' button
 	this.createTableButton = new Aloha.ui.Button({
-		'iconClass' : 'GENTICS_button GENTICS_button_table',
+		'iconClass' : 'aloha-button aloha-button-table',
 		'size' : 'small',
 		'tooltip' : this.i18n('button.createtable.tooltip'),
 		'onclick' : function (element, event) {
@@ -234,7 +237,7 @@ Aloha.TablePlugin.initTableButtons = function () {
 	Aloha.FloatingMenu.addButton(
 		this.getUID('column'),
 		new Aloha.ui.Button({
-			'iconClass' : 'GENTICS_button GENTICS_button_addColumnLeft',
+			'iconClass' : 'aloha-button aloha-button-addColumnLeft',
 			'size' : 'small',
 			'tooltip' : this.i18n('button.addcolleft.tooltip'),
 			'onclick' : function () {
@@ -249,7 +252,7 @@ Aloha.TablePlugin.initTableButtons = function () {
 	Aloha.FloatingMenu.addButton(
 		this.getUID('column'),
 		new Aloha.ui.Button({
-			'iconClass' : 'GENTICS_button GENTICS_button_addColumnRight',
+			'iconClass' : 'aloha-button aloha-button-addColumnRight',
 			'size' : 'small',
 			'tooltip' : this.i18n('button.addcolright.tooltip'),
 			'onclick' : function () {
@@ -264,7 +267,7 @@ Aloha.TablePlugin.initTableButtons = function () {
 	Aloha.FloatingMenu.addButton(
 		this.getUID('column'),
 		new Aloha.ui.Button({
-			'iconClass' : 'GENTICS_button GENTICS_button_deleteColumns',
+			'iconClass' : 'aloha-button aloha-button-deleteColumns',
 			'size' : 'small',
 			'tooltip' : this.i18n('button.delcols.tooltip'),
 			'onclick' : function () {
@@ -291,7 +294,7 @@ Aloha.TablePlugin.initTableButtons = function () {
 	Aloha.FloatingMenu.addButton(
 		this.getUID('row'),
 		new Aloha.ui.Button({
-			'iconClass' : 'GENTICS_button GENTICS_button_addRowBefore',
+			'iconClass' : 'aloha-button aloha-button-addRowBefore',
 			'size' : 'small',
 			'tooltip' : this.i18n('button.addrowbefore.tooltip'),
 			'onclick' : function () {
@@ -306,7 +309,7 @@ Aloha.TablePlugin.initTableButtons = function () {
 	Aloha.FloatingMenu.addButton(
 		this.getUID('row'),
 		new Aloha.ui.Button({
-			'iconClass' : 'GENTICS_button GENTICS_button_addRowAfter',
+			'iconClass' : 'aloha-button aloha-button-addRowAfter',
 			'size' : 'small',
 			'tooltip' : this.i18n('button.addrowafter.tooltip'),
 			'onclick' : function () {
@@ -321,7 +324,7 @@ Aloha.TablePlugin.initTableButtons = function () {
 	Aloha.FloatingMenu.addButton(
 		this.getUID('row'),
 		new Aloha.ui.Button({
-			'iconClass' : 'GENTICS_button GENTICS_button_deleteRows',
+			'iconClass' : 'aloha-button aloha-button-deleteRows',
 			'size' : 'small',
 			'tooltip' : this.i18n('button.delrows.tooltip'),
 			'onclick' : function () {
@@ -345,7 +348,7 @@ Aloha.TablePlugin.initTableButtons = function () {
 	);
 
 	this.captionButton = new Aloha.ui.Button({
-		'iconClass' : 'GENTICS_button GENTICS_button_table_caption',
+		'iconClass' : 'aloha-button aloha-button-table_caption',
 		'size' : 'small',
 		'tooltip' : this.i18n('button.caption.tooltip'),
         'toggle' : true,
@@ -904,14 +907,14 @@ Aloha.Table.prototype.activate = function() {
 	// set flag, that the table is activated
 	this.isActive = true;
 
-	// throw a new event when the table has been activated
-	Aloha.EventRegistry.trigger(
+	/* Event not binded upward (and if so, write it a new way ?)
+	Aloha.trigger(
 			new Aloha.Event(
 					'tableActivated',
 					Aloha,
 					[ this ]
 			)
-	);
+	);*/
 };
 
 /**
@@ -2134,7 +2137,7 @@ Aloha.Table.Cell.prototype.activate = function() {
 	wrapper.bind('keydown',   function(jqEvent) { that.editableKeyDown(jqEvent);   });
 
 	// we will treat the wrapper just like an editable
-	wrapper.GENTICS_contentEditableSelectionChange(function (event) {
+	wrapper.contentEditableSelectionChange(function (event) {
 		Aloha.Selection.onChange(wrapper, event);
 		return wrapper;
 	});
